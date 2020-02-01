@@ -1,0 +1,12 @@
+% Fix spacing with left, right for functions.
+\newcommand{\fleft}{\mathopen{}\mathclose\bgroup\left}
+\newcommand{\fright}{\aftergroup\egroup\right}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{example}{Example}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% Here, for instance, you operator definitions...

@@ -1,0 +1,163 @@
+\documentclass[11pt,a4paper]{book}
+\pdfoptionpdfminorversion=6
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[paper=a4paper,inner=3.5cm,outer=3.0cm]{geometry}
+%===========================================================
+\usepackage{cmap}
+\usepackage{subfiles}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+\usepackage{xcolor}
+\usepackage{xspace}
+\usepackage[inline]{enumitem}
+\usepackage{csquotes}
+\newcommand*\elide{\textup{[\,\dots]}} % for omitting in quotes: '[...]'
+
+\usepackage{rotating}
+\usepackage{pdfpages}
+\usepackage{pdflscape}
+\usepackage{todonotes}
+
+% Useful for Maths:
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage[binary-units=true]{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,calc,positioning,shadows,automata,fit}
+
+% Code listing style
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.50,0,0.50}
+\definecolor{code}{rgb}{1.00,0.08,0.58}
+\definecolor{backcolour}{rgb}{0.96,0.95,0.89}
+\lstdefinestyle{codestyle}{
+    backgroundcolor=\color{white},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=7pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    frame=single,
+    frameround=tttt,
+    morekeywords={
+      while, do, od, if, fi, assume, assert, else, then, []
+    }
+}
+\lstset{style=codestyle}
+
+
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e} % For nicely writing algorithms
+\AtBeginEnvironment{algorithm}{\SetArgSty{textrm}}  % <- if-clause will not be written in italic
+
+% Bibliography
+\def\biblio{\bibliographystyle{amsalpha}\bibliography{../bib/bib}}
+
+% Figures
+\usepackage{float} % Required for the floating environment
+\usepackage{graphicx} % Required to insert images
+\usepackage{subfig} % Allows more figures in one float
+\def\resources{\graphicspath{{"../res/imgs/"}}}
+
+% Tables
+\usepackage{tabularx}
+\usepackage{longtable}
+% From https://tex.stackexchange.com/questions/309833/format-whole-row-of-table-as-bold:
+\newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces} % allows to set a whole tabular row in a specific font
+\newcommand\clearrow{\global\let\rowmac\relax} % clears row formatting
+\clearrow
+
+% Acronyms - don't forget to run `makeglossaries' to display the list of abbreviations!
+\usepackage[acronym]{glossaries}
+\makeglossaries
+\loadglsentries{glossary.gls} % Put your acronyms in this file
+
+% Math styles theorems
+\input{./maths-styles.tex} % Math related settings are in this file
+\allowdisplaybreaks % let page breaks fall where they may, even in the middle of a multi-line equation
+
+% Your own commands that might be used in other project as well
+\input{./commands.tex}
+
+% Chapter style
+\usepackage[nottoc]{tocbibind}
+\usepackage{titlesec}
+\titleformat{\chapter}[display]{\Large}{\filleft\MakeUppercase{\chaptertitlename}
+  \Huge\thechapter}{1ex}{\Huge\bfseries\filleft\titlerule\vspace{1ex}}
+
+% Headers
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\usepackage{emptypage}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{ \markboth{\textsc{\thechapter.\ #1}}{} }
+\renewcommand{\sectionmark}[1]{ \markright{\thesection.\ #1} }
+\fancyhf{} % clear all header fields
+\fancyhead[EL]{\leftmark}
+\fancyhead[OR]{\rightmark}
+\lfoot[\thepage]{}
+\rfoot[]{\thepage}
+
+%%%%%%%%% Document start %%%%%%%%%
+\begin{document}
+\def\biblio{}
+\def\resources{\graphicspath{{"./res/imgs/"}}} % path needs to change relative
+                                               % to the compiled file
+
+\frontmatter
+\pagestyle{plain}
+\pagenumbering{gobble}
+\subfile{./titlepage.tex} % TODO: adapt to your needs
+\cleardoublepage
+
+% TODO: This was my template for the oath (translated from German by the University
+% for English-speaking students), use your own of course.
+\includepdf[pages={1}]{Statutory_Declaration_in_Lieu_of_an_Oath.pdf}
+\cleardoublepage
+
+\pagenumbering{roman}
+\setcounter{page}{5} % TODO: set manually, may differ if your oath page count is different
+
+\chapter*{Acknowledgements}
+Hereby, I wish to express my honest gratitude towards...
+
+\chapter*{Abstract}
+This revolutionary work presents a...\todo{Write an abstract.}
+
+% Indices
+\tableofcontents
+\listoffigures
+\listoftables
+\lstlistoflistings
+
+\mainmatter
+\pagestyle{fancy} % change to main text style
+\subfile{./intro/introduction.tex}
+\subfile{./content/content.tex}
+\subfile{./conclusion/conclusion.tex}
+
+\bibliographystyle{amsalpha} % choose your preferred style
+\bibliography{bib/bib} % I like to keep my bibliography in ./bib/bib.bib
+
+\appendix
+\printglossaries
+\subfile{./appendix/appendix.tex}
+
+\end{document}
+

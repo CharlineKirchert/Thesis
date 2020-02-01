@@ -1,0 +1,50 @@
+\makeatletter
+\def\input@path{{../}}
+\makeatother
+\documentclass[../thesis.tex]{subfiles}
+
+\resources % search for graphics in ../res/imgs/
+
+\begin{document}
+\chapter{First appendix}
+For example a detail of an algorithm:
+
+\begin{algorithm}
+ \KwIn{A formula in CNF}
+ \KwOut{SAT or UNSAT}
+ 
+ \lIf {BCP() = CONFLICT}{\Return{UNSAT}}
+ \While{True}{
+  \lIf{$\lnot$DecideNextBranch()}{\Return SAT}
+  \Else{
+    \While{BCP() = CONFLICT}{
+      backtrackLevel := AnalyzeConflict()\;
+      \lIf{backtrackLevel $<$ 0}{\Return UNSAT}
+      \lElse{Backtrack(backtrackLevel)}
+    }
+  }
+ }
+ \caption{DPLL}\label{alg:dpll}
+\end{algorithm}
+
+
+\chapter{Second appendix}
+For instance some statistical data...
+
+\begin{table}[h] % https://en.wikibooks.org/wiki/LaTeX/Tables
+  \begin{tabular}{>{\rowmac}l>{\rowmac}r>{\rowmac}r<{\clearrow}}
+    \toprule
+    One & Two & Three \\
+    \midrule
+    1 & 2 & 3 \\
+\setrow{\bfseries} 4 & 5 & 6 \\
+    7 & 8 & 9 \\
+    \bottomrule
+  \end{tabular}
+  \centering
+  \caption{Just some data.}\label{tab:table}
+\end{table}
+
+
+\biblio
+\end{document}
